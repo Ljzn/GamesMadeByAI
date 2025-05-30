@@ -23,11 +23,13 @@
         
         .stats {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
             width: 100%;
             max-width: 800px;
             margin-bottom: 20px;
             font-size: 18px;
+            gap: 10px;
         }
         
         .stat-box {
@@ -38,85 +40,62 @@
         }
         
         .result {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             height: 50px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: #e74c3c;
+            text-align: center;
         }
         
         .success {
             color: #2ecc71;
         }
         
-        .container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            max-width: 1200px;
-        }
-        
-        .keypad {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin-right: 20px;
-        }
-        
-        .input-display {
-            font-size: 24px;
+        .hint-message {
             text-align: center;
             margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            height: 30px;
-        }
-        
-        .number-buttons {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        button {
-            padding: 15px;
-            font-size: 18px;
-            border: none;
-            border-radius: 5px;
-            background-color: #3498db;
-            color: white;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        button:hover {
-            background-color: #2980b9;
-        }
-        
-        .confirm-btn {
-            width: 100%;
-            background-color: #2ecc71;
-        }
-        
-        .confirm-btn:hover {
-            background-color: #27ae60;
+            font-size: 16px;
+            color: #9b59b6;
+            height: 20px;
         }
         
         .cards-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 10px;
-            width: 800px;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cards-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-box {
+                width: 80%;
+                margin-bottom: 10px;
+                text-align: center;
+            }
         }
         
         .card-container {
             perspective: 1000px;
-            width: 140px;
-            height: 140px;
+            aspect-ratio: 1/1;
+            width: 100%;
+            cursor: pointer;
         }
         
         .card {
@@ -178,13 +157,30 @@
             font-size: 16px;
         }
         
-        /* Enhanced highlight effect styling */
+        .card-cost {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        
+        /* Enhanced highlight effect styling with better visibility */
         .highlight-card {
             animation: cardHighlight 1.5s ease-in-out infinite;
         }
         
         .highlight-card .card-front {
+            background: linear-gradient(135deg, #f1c40f, #f39c12); /* Golden color for highlighted cards */
             box-shadow: 0 0 20px 5px rgba(255, 215, 0, 0.7);
+        }
+        
+        .highlight-card .card-number {
+            font-size: 28px; /* Bigger number */
+            font-weight: bold;
             animation: numberPulse 1.5s ease-in-out infinite;
         }
         
@@ -210,6 +206,8 @@
             margin-bottom: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             text-align: center;
+            width: 80%;
+            max-width: 400px;
         }
         
         .balance-amount {
@@ -229,11 +227,11 @@
             100% { opacity: 0.5; }
         }
         
-        .disabled-btn {
-            background-color: #95a5a6 !important;
-            cursor: not-allowed !important;
+        .disabled-card {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
-
+        
         .restart-btn {
             background-color: #9b59b6;
             margin-top: 10px;
@@ -249,11 +247,10 @@
 <body>
     <div class="header">
         <h1>高级盲盒抽奖游戏</h1>
-        <p>从20个盲盒中找出2个有奖的盒子</p>
+        <p>点击盒子探索里面的大奖！</p>
         <button id="restartButton" class="restart-btn" onclick="restartGame()">重新开始</button>
     </div>
     
-    <!-- Add user balance display -->
     <div class="user-balance">
         余额: <span id="userBalance" class="balance-amount">200</span> 元
     </div>
@@ -271,30 +268,9 @@
     <div class="result" id="result"></div>
     <div class="hint-message" id="hintMessage"></div>
     
-    <div class="container">
-        <div class="keypad">
-            <div class="input-display" id="inputDisplay">请输入数字(1-20)</div>
-            <div class="number-buttons">
-                <button onclick="appendNumber(1)">1</button>
-                <button onclick="appendNumber(2)">2</button>
-                <button onclick="appendNumber(3)">3</button>
-                <button onclick="appendNumber(4)">4</button>
-                <button onclick="appendNumber(5)">5</button>
-                <button onclick="appendNumber(6)">6</button>
-                <button onclick="appendNumber(7)">7</button>
-                <button onclick="appendNumber(8)">8</button>
-                <button onclick="appendNumber(9)">9</button>
-                <button onclick="appendNumber(0)">0</button>
-                <button onclick="clearInput()">清除</button>
-            </div>
-            <button class="confirm-btn" onclick="checkResult()">确定(扣费19元)</button>
-        </div>
-        
-        <div class="cards-container" id="cardsContainer"></div>
-    </div>
+    <div class="cards-container" id="cardsContainer"></div>
     
     <script>
-        let userInput = '';
         let totalCost = 0;
         let prizeCards = [];
         let hintDigits = [];
@@ -318,14 +294,17 @@
             const container = document.getElementById('cardsContainer');
             container.innerHTML = '';
             
+            const currentCost = parseInt(document.getElementById('currentCost').value) || 19;
+            
             for (let i = 1; i <= 20; i++) {
                 const isPrize = prizeCards.includes(i);
                 const cardHtml = `
-                    <div class="card-container">
+                    <div class="card-container" onclick="flipCard(${i})">
                         <div class="card" id="card${i}">
                             <div class="card-face card-front">
                                 <div class="card-number">${i}</div>
                                 <div class="card-value">🐻</div>
+                                <div class="card-cost">${currentCost}元</div>
                             </div>
                             <div class="card-face card-back ${isPrize ? 'big-prize' : 'small-prize'}">
                                 <div class="card-number">${i}</div>
@@ -338,7 +317,7 @@
             }
             
             updateStats();
-            updateBalance(); // Add this line to initialize the balance display
+            updateBalance();
             document.getElementById('hintMessage').textContent = '';
         }
         
@@ -360,50 +339,23 @@
             // 转换为数组并排序
             hintDigits = Array.from(possibleDigits).sort((a, b) => a - b);
         }
-
-        function appendNumber(num) {
-            if (userInput.length < 2) {
-                userInput += num;
-                updateInputDisplay();
-            }
-        }
-        
-        function clearInput() {
-            userInput = '';
-            updateInputDisplay();
-        }
-        
-        function updateInputDisplay() {
-            const display = document.getElementById('inputDisplay');
-            display.textContent = userInput || '请输入数字(1-20)';
-        }
         
         function handleCostChange() {
             const cost = parseInt(document.getElementById('currentCost').value) || 19;
-            document.querySelector('.confirm-btn').textContent = `确定(扣费${cost}元)`;
+            
+            // Update cost display on all cards
+            document.querySelectorAll('.card-cost').forEach(costElem => {
+                costElem.textContent = `${cost}元`;
+            });
             
             // Check if user can afford this cost
             updateBalance();
         }
         
-        function checkResult() {
-            if (!userInput) {
-                alert('请输入数字后再确定');
-                return;
-            }
-            
-            const num = parseInt(userInput);
-            if (num < 1 || num > 20) {
-                alert('请输入1-20之间的数字');
-                clearInput();
-                return;
-            }
-            
+        function flipCard(num) {
             // 检查卡片是否已经翻开
             const card = document.getElementById(`card${num}`);
             if (card.classList.contains('flipped')) {
-                alert('这个盒子已经打开过了，请选择其他盒子');
-                clearInput();
                 return;
             }
             
@@ -449,12 +401,6 @@
                     highlightPossibleCards();
                 }, 800);
             }
-            
-            // 重置输入
-            setTimeout(() => {
-                userInput = '';
-                updateInputDisplay();
-            }, 1000);
         }
         
         // 增强版高亮函数
@@ -489,7 +435,6 @@
             document.getElementById('totalCost').textContent = totalCost;
         }
         
-        // Add the missing updateBalance function
         function updateBalance() {
             const balanceElement = document.getElementById('userBalance');
             balanceElement.textContent = userBalance;
@@ -501,32 +446,30 @@
                 balanceElement.classList.remove('low-balance');
             }
             
-            // Disable confirm button if balance is insufficient
+            // Check if any cards should be disabled due to insufficient balance
             const currentCost = parseInt(document.getElementById('currentCost').value) || 19;
-            const confirmBtn = document.querySelector('.confirm-btn');
             
-            if (userBalance < currentCost) {
-                confirmBtn.classList.add('disabled-btn');
-                confirmBtn.disabled = true;
-                confirmBtn.title = "余额不足，无法继续抽奖";
-            } else {
-                confirmBtn.classList.remove('disabled-btn');
-                confirmBtn.disabled = false;
-                confirmBtn.title = "";
-            }
+            document.querySelectorAll('.card-container').forEach(container => {
+                const card = container.querySelector('.card');
+                
+                if (!card.classList.contains('flipped')) {
+                    if (userBalance < currentCost) {
+                        container.classList.add('disabled-card');
+                        container.title = "余额不足，无法翻开";
+                    } else {
+                        container.classList.remove('disabled-card');
+                        container.title = "";
+                    }
+                }
+            });
         }
 
         // Update event listeners
         document.getElementById('currentCost').addEventListener('change', handleCostChange);
         document.getElementById('currentCost').addEventListener('input', handleCostChange);
         
-        // 初始化游戏
-        initGame();
-
-        // Add restart game function
         function restartGame() {
             // Reset game state variables
-            userInput = '';
             totalCost = 0;
             userBalance = 200; // Reset balance to initial value
             
@@ -534,17 +477,25 @@
             const resultElement = document.getElementById('result');
             resultElement.textContent = '';
             resultElement.classList.remove('success');
-            document.getElementById('hintMessage').textContent = '';
             
-            // Clear input display
-            updateInputDisplay();
+            // Show a temporary restart message in the hint area instead of an alert
+            const hintElement = document.getElementById('hintMessage');
+            hintElement.textContent = '游戏已重置，可以开始新一轮抽奖了！';
+            hintElement.style.color = '#27ae60'; // Green color for success message
             
-            // Initialize new game
+            // 初始化新游戏
             initGame();
             
-            // Show confirmation to user
-            alert('游戏已重置，可以开始新一轮抽奖了！');
+            // Clear the restart message after a few seconds
+            setTimeout(() => {
+                if (document.getElementById('hintMessage').textContent === '游戏已重置，可以开始新一轮抽奖了！') {
+                    document.getElementById('hintMessage').textContent = '';
+                }
+            }, 3000);
         }
+        
+        // 初始化游戏
+        initGame();
     </script>
 </body>
 </html>
