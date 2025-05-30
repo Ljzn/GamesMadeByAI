@@ -233,12 +233,24 @@
             background-color: #95a5a6 !important;
             cursor: not-allowed !important;
         }
+
+        .restart-btn {
+            background-color: #9b59b6;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        
+        .restart-btn:hover {
+            background-color: #8e44ad;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>高级盲盒抽奖游戏</h1>
         <p>从20个盲盒中找出2个有奖的盒子</p>
+        <button id="restartButton" class="restart-btn" onclick="restartGame()">重新开始</button>
     </div>
     
     <!-- Add user balance display -->
@@ -510,6 +522,29 @@
         
         // 初始化游戏
         initGame();
+
+        // Add restart game function
+        function restartGame() {
+            // Reset game state variables
+            userInput = '';
+            totalCost = 0;
+            userBalance = 200; // Reset balance to initial value
+            
+            // Clear any results and hints
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = '';
+            resultElement.classList.remove('success');
+            document.getElementById('hintMessage').textContent = '';
+            
+            // Clear input display
+            updateInputDisplay();
+            
+            // Initialize new game
+            initGame();
+            
+            // Show confirmation to user
+            alert('游戏已重置，可以开始新一轮抽奖了！');
+        }
     </script>
 </body>
 </html>
