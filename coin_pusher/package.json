@@ -1,0 +1,14 @@
+{
+  "name": "coin-pusher-game",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A browser-based coin pusher game using SVG and HTML elements",
+  "main": "server.js",
+  "scripts": {
+    "start": "bun run server.js",
+    "dev": "bun --watch run server.js"
+  },
+  "keywords": ["game", "coin pusher", "browser game", "html5 game"],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,641 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Microsoft YaHei", Arial, sans-serif;
+    background-color: #121212;
+    color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Main container */
+.game-container {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/* Header */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #2a2a2a;
+    border-bottom: 3px solid #444;
+}
+
+.game-header h1 {
+    font-size: 24px;
+    color: #ffcc00;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+}
+
+.score-container {
+    font-size: 20px;
+    color: #fff;
+    background-color: #333;
+    padding: 5px 15px;
+    border-radius: 20px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#score {
+    color: #ffcc00;
+    font-weight: bold;
+}
+
+/* Main game area */
+.game-area {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* Coin pusher machine */
+.coin-pusher {
+    flex: 3;
+    background: linear-gradient(to bottom, #444, #333);
+    border-radius: 10px;
+    border: 5px solid #555;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-height: 600px;
+}
+
+/* Screen section */
+.screen-section {
+    flex: none;
+    height: 250px; /* 固定高度 */
+    background-color: #222;
+    padding: 15px;
+    border-bottom: 3px solid #555;
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    border: 3px solid #666;
+    border-radius: 5px;
+    position: relative;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+}
+
+/* Pins above detector */
+.pins-container {
+    position: absolute;
+    bottom: 30px; /* 位于检测器上方 */
+    left: 0;
+    width: 100%;
+    height: 80px; /* 两排钉子的高度 */
+}
+
+.pin {
+    position: absolute;
+    width: 7px;  /* 进一步减小钉子大小 */
+    height: 7px; /* 进一步减小钉子大小 */
+    background: linear-gradient(to bottom, #dddddd, #aaaaaa);
+    border: 1px solid #999;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    z-index: 10;
+}
+
+/* Moving detector */
+.detector {
+    position: absolute;
+    bottom: 5px; /* 调整位置至更下方 */
+    left: 0;
+    width: 40px;
+    height: 20px;
+    background: linear-gradient(to bottom, #ffcc00, #ff9900);
+    border: 2px solid #ffdd33;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+    transition: all 0.1s;
+}
+
+.detector.flashing {
+    background: linear-gradient(to bottom, #ffff00, #ffcc00);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+/* Platform section */
+.platform-container {
+    flex: 3;
+    background-color: #2a2a2a;
+    position: relative;
+    overflow: hidden;
+}
+
+.pusher {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, #666, #555);
+    border-bottom: 3px solid #777;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+/* 两层平台结构 */
+.platform {
+    width: 100%;
+    height: calc(100% - 40px);
+    margin-top: 40px;
+    background: transparent;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transform: rotateX(20deg);
+    transform-origin: center bottom;
+    overflow: hidden;
+}
+
+/* 第一层平台 - 可收缩的 */
+.platform-level-1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%; /* 第一层占60%的高度 */
+    background: #444;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.7);
+    z-index: 2;
+    transition: transform 1.5s ease-in-out;
+}
+
+/* 第二层平台 - 固定的 */
+.platform-level-2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%; /* 第二层占40%的高度 */
+    background: #333;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+/* 平台收缩状态 */
+.platform-level-1.retracted {
+    transform: translateX(-100%);
+}
+
+.drop-zone {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 20px;
+    background-color: #111;
+    z-index: 5;
+}
+
+/* Coin slot section */
+.coin-slot-section {
+    flex: 1;
+    padding: 15px;
+    background: linear-gradient(to bottom, #444, #333);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 3px solid #555;
+}
+
+.coin-slot {
+    width: 100px;
+    height: 30px;
+    background-color: #222;
+    border: 3px solid #666;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+.slot-indicator {
+    width: 10px;
+    height: 10px;
+    background-color: #555;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.slot-indicator.active {
+    background-color: #ffcc00;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+}
+
+/* Controls area */
+.controls-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Coin basket */
+.coin-basket {
+    background-color: #2a2a2a;
+    border: 3px solid #555;
+    border-radius: 10px;
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.coin-basket h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffcc00;
+    position: relative;
+}
+
+.coin-count {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: #ffcc00;
+    color: #333;
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    display: none; /* 默认隐藏，当有额外硬币时显示 */
+}
+
+.coins-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3x3网格 */
+    gap: 10px;
+    justify-content: center;
+    align-content: flex-start;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 5px;
+    min-height: 200px;
+    max-height: 200px; /* 限制高度 */
+    overflow: hidden; /* 隐藏多余硬币 */
+}
+
+/* Control buttons */
+.control-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    padding: 12px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, #ffcc00, #ff9900);
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #ffdd33, #ffaa33);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.4);
+}
+
+button:active {
+    background: linear-gradient(to bottom, #ff9900, #ff8800);
+    transform: translateY(1px);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Game instructions */
+.game-instructions {
+    padding: 15px 20px;
+    background-color: #2a2a2a;
+    border-top: 3px solid #444;
+    text-align: center;
+    font-size: 14px;
+    color: #ccc;
+}
+
+/* Coin styling */
+.coin {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    transform-style: preserve-3d;
+}
+
+.coin.dragging {
+    cursor: grabbing;
+    z-index: 1000;
+}
+
+.coin.platform-coin {
+    position: absolute;
+}
+
+/* SVG styling inside coin */
+.coin svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Animations */
+@keyframes coinDrop {
+    0% {
+        transform: translateY(-50px) rotateX(0);
+    }
+    100% {
+        transform: translateY(0) rotateX(360deg);
+    }
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 204, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotateZ(0);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+.coin-dropping {
+    animation: coinDrop 0.5s ease-in;
+}
+
+.detector.hit {
+    animation: glow 0.3s ease-out;
+}
+
+.coin-collected {
+    animation: spin 0.5s ease-out;
+}
+
+/* 转盘抽奖样式 */
+.roulette-container, .jackpot-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(255, 204, 0, 0.7);
+    padding: 10px;
+}
+
+.roulette-wheel, .jackpot-wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    background: linear-gradient(135deg, #555, #333);
+    border: 5px solid #ffcc00;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* 转盘高亮效果已通过CSS类实现，不需要单独的高亮元素 */
+
+/* 掉落的奖励硬币 */
+.reward-coins {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 25;
+    overflow: hidden;
+}
+
+.reward-coin {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: -30px;
+    animation: coinFall 1s ease-in forwards;
+    filter: drop-shadow(0 0 5px rgba(255, 204, 0, 0.7));
+}
+
+@keyframes coinFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(250px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.roulette-center, .jackpot-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background: #ffcc00;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+    z-index: 2;
+}
+
+.roulette-item, .jackpot-item {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease-out;
+}
+
+.roulette-item.highlighted, .jackpot-item.highlighted {
+    color: #ffcc00;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+    transform: scale(1.2);
+}
+
+.roulette-item:nth-child(2) {
+    top: 20px;
+    left: calc(50% - 25px);
+}
+
+.roulette-item:nth-child(3) {
+    bottom: 70px;
+    right: 20px;
+}
+
+.roulette-item:nth-child(4) {
+    bottom: 70px;
+    left: 20px;
+}
+
+.roulette-item:nth-child(5) {
+    bottom: 20px;
+    left: calc(50% - 25px);
+}
+
+.roulette-item.crown {
+    font-size: 32px;
+    color: #ffcc00;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+}
+
+.jackpot-item:nth-child(2) {
+    top: 20px;
+    left: calc(50% - 25px);
+}
+
+.jackpot-item:nth-child(3) {
+    top: 50px;
+    right: 30px;
+}
+
+.jackpot-item:nth-child(4) {
+    bottom: 50px;
+    right: 30px;
+}
+
+.jackpot-item:nth-child(5) {
+    bottom: 50px;
+    left: 30px;
+}
+
+.jackpot-item:nth-child(6) {
+    top: 50px;
+    left: 30px;
+}
+
+.roulette-pointer, .jackpot-pointer {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid #ff0000;
+    z-index: 3;
+}
+
+.prize-display {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    border: 3px solid #ffcc00;
+    border-radius: 10px;
+    padding: 15px 30px;
+    z-index: 25;
+}
+
+.prize-value {
+    font-size: 36px;
+    color: #ffcc00;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+@keyframes prizeFadeIn {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.prize-display.show {
+    display: block !important;
+    animation: prizeFadeIn 0.5s ease-out;
+}
+
+/* Platform retraction animation */
+@keyframes platform-retract {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes platform-extend {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+
+.platform-level-1 {
+    transition: transform 1.5s ease-in-out;
+}
+
+.platform-level-1.retracted {
+    transform: translateX(-100%);
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .game-area {
+        flex-direction: column;
+    }
+    
+    .controls-area {
+        flex-direction: row;
+    }
+    
+    .coin-basket {
+        flex: 2;
+    }
+    
+    .control-buttons {
+        flex: 1;
+    }
+}

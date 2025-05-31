@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>推币机游戏</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="js/coin-animations.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 游戏标题 -->
+        <div class="game-header">
+            <h1>推币机游戏</h1>
+            <div class="score-container">
+                <span>得分: </span><span id="score">0</span>
+            </div>
+        </div>
+        
+        <!-- 主游戏区域 -->
+        <div class="game-area">
+            <!-- 推币机 -->
+            <div class="coin-pusher">
+                <!-- 上半部分：屏幕 -->
+                <div class="screen-section">
+                    <div class="screen">
+                        <!-- 障碍物钉子 -->
+                        <div class="pins-container">
+                            <!-- 钉子会在这里动态生成 -->
+                        </div>
+                        
+                        <!-- 左右移动的检测器 -->
+                        <div class="detector"></div>
+                        
+                        <!-- 转盘抽奖 (初始隐藏) -->
+                        <div class="roulette-container" style="display: none;">
+                            <div class="roulette-wheel">
+                                <div class="roulette-center"></div>
+                                <div class="roulette-item" data-prize="3">3</div>
+                                <div class="roulette-item" data-prize="5">5</div>
+                                <div class="roulette-item" data-prize="8">8</div>
+                                <div class="roulette-item crown" data-prize="crown">👑</div>
+                            </div>
+                            <div class="roulette-pointer"></div>
+                        </div>
+                        
+                        <!-- 第二轮抽奖 (初始隐藏) -->
+                        <div class="jackpot-container" style="display: none;">
+                            <div class="jackpot-wheel">
+                                <div class="jackpot-center"></div>
+                                <div class="jackpot-item" data-prize="500">500</div>
+                                <div class="jackpot-item" data-prize="600">600</div>
+                                <div class="jackpot-item" data-prize="800">800</div>
+                                <div class="jackpot-item" data-prize="1000">1000</div>
+                                <div class="jackpot-item" data-prize="2000">2000</div>
+                            </div>
+                            <div class="jackpot-pointer"></div>
+                        </div>
+                        
+                        <!-- 奖励显示 -->
+                        <div class="prize-display" style="display: none;">
+                            <span class="prize-value"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 中间部分：推币平台 -->
+                <div class="platform-container">
+                    <!-- 推动器 -->
+                    <div class="pusher"></div>
+                    
+                    <!-- 平台表面 -->
+                    <div class="platform">
+                        <!-- 两层平台结构 -->
+                        <div class="platform-level-1">
+                            <!-- 第一层硬币 -->
+                        </div>
+                        <div class="platform-level-2">
+                            <!-- 第二层硬币 -->
+                        </div>
+                    </div>
+                    
+                    <!-- 掉落区域 -->
+                    <div class="drop-zone"></div>
+                </div>
+                
+                <!-- 下半部分：投币口 -->
+                <div class="coin-slot-section">
+                    <div class="coin-slot">
+                        <div class="slot-indicator"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 右侧控制区域 -->
+            <div class="controls-area">
+                <!-- 硬币篮子 -->
+                <div class="coin-basket">
+                    <h3>硬币篮子<div class="coin-count"></div></h3>
+                    <div class="coins-container">
+                        <!-- 硬币会在这里动态生成 -->
+                    </div>
+                </div>
+                
+                <!-- 游戏控制按钮 -->
+                <div class="control-buttons">
+                    <button id="add-coins">添加硬币</button>
+                    <button id="reset-game">重置游戏</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 游戏说明 -->
+        <div class="game-instructions">
+            <p>从右侧的硬币篮子中拖动硬币到投币口来玩！硬币会从上方落下，穿过障碍钉子并经过检测器后到达游戏平台。当硬币落入检测器时，会触发转盘抽奖！</p>
+            <p>普通抽奖可能获得3、5、8分，或者皇冠奖励。抽中皇冠后进入第二轮抽奖，最高可获得2000分！所有获得的分数都会自动转换为硬币篮子中的硬币。</p>
+            <p>注意游戏平台分为两层！上层平台会定期收缩，让硬币落到下层。只有从下层掉落的硬币才会得分。</p>
+        </div>
+    </div>
+    
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
