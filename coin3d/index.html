@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D硬币游戏 - Vite版</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: #121212;
+      font-family: Arial, sans-serif;
+    }
+    
+    canvas {
+      display: block;
+    }
+    
+    #info {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+      pointer-events: none;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      z-index: 100;
+    }
+    
+    #controls {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #ffcc00;
+      color: #333;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #ffd700;
+      transform: scale(1.05);
+    }
+    
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="info">点击硬币进行翻转</div>
+  
+  <div id="controls">
+    <button id="flip-btn">翻转硬币</button>
+    <button id="reset-btn">重置视角</button>
+    <button id="sound-btn">🔊 声音: 开</button>
+  </div>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
