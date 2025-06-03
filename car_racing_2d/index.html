@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Car Racing Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        <div id="ui-layer">
+            <div id="start-screen" class="screen">
+                <h1>2D Car Racing</h1>
+                
+                <div class="track-selection">
+                    <h2>Select Track</h2>
+                    <div id="track-options" class="track-options">
+                        <!-- Track options will be inserted here dynamically -->
+                    </div>
+                </div>
+                
+                <button id="start-button">Start Race</button>
+                <div class="controls-info">
+                    <p>Controls:</p>
+                    <p>↑ - Accelerate</p>
+                    <p>↓ - Brake</p>
+                    <p>← - Turn Left</p>
+                    <p>→ - Turn Right</p>
+                    <p>SPACE - Handbrake</p>
+                </div>
+            </div>
+            <div id="game-ui" class="hidden">
+                <div id="speed-meter">
+                    <span id="speed-value">0</span>
+                    <span>km/h</span>
+                </div>
+                <div id="lap-info">
+                    <span>Lap: </span>
+                    <span id="current-lap">1</span>/<span id="total-laps">3</span>
+                </div>
+                <div id="time-info">
+                    <span>Time: </span>
+                    <span id="time-value">00:00.000</span>
+                </div>
+            </div>
+            <div id="end-screen" class="screen hidden">
+                <h1>Race Complete!</h1>
+                <div id="final-time"></div>
+                <div id="best-time"></div>
+                <button id="change-track-button">Change Track</button>
+                <button id="restart-button">Race Again</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/utils.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/trackLoader.js"></script>
+    <script src="js/track.js"></script>
+    <script src="js/car.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

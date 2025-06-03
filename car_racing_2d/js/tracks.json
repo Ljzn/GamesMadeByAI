@@ -1,0 +1,91 @@
+{
+  "tracks": [
+    {
+      "id": "classic",
+      "name": "Classic Circuit",
+      "description": "A balanced track with a mix of curves and straight sections",
+      "previewColor": "#3366cc",
+      "controlPoints": [
+        { "xFactor": 0.7, "yFactor": 0.8 },
+        { "xFactor": 0.8, "yFactor": 0.6 },
+        { "xFactor": 0.8, "yFactor": 0.3 },
+        { "xFactor": 0.6, "yFactor": 0.2 },
+        { "xFactor": 0.4, "yFactor": 0.2 },
+        { "xFactor": 0.2, "yFactor": 0.3 },
+        { "xFactor": 0.2, "yFactor": 0.4 },
+        { "xFactor": 0.3, "yFactor": 0.5 },
+        { "xFactor": 0.2, "yFactor": 0.6 },
+        { "xFactor": 0.3, "yFactor": 0.8 },
+        { "xFactor": 0.5, "yFactor": 0.8 },
+        { "xFactor": 0.6, "yFactor": 0.9 },
+        { "xFactor": 0.7, "yFactor": 0.8 }
+      ],
+      "outerTrackScale": 1.2,
+      "innerTrackScale": 0.6,
+      "startPosition": { "xFactor": 0.7, "yFactor": 0.75, "angle": 90 },
+      "checkpointCount": 8,
+      "trackColor": "#555",
+      "borderColor": "#fff"
+    },
+    {
+      "id": "figure8",
+      "name": "Figure 8",
+      "description": "A challenging figure 8 layout with crossover",
+      "previewColor": "#cc3366",
+      "controlPoints": [
+        { "xFactor": 0.5, "yFactor": 0.2 },
+        { "xFactor": 0.7, "yFactor": 0.2 },
+        { "xFactor": 0.8, "yFactor": 0.3 },
+        { "xFactor": 0.8, "yFactor": 0.4 },
+        { "xFactor": 0.5, "yFactor": 0.5 },
+        { "xFactor": 0.2, "yFactor": 0.6 },
+        { "xFactor": 0.2, "yFactor": 0.7 },
+        { "xFactor": 0.3, "yFactor": 0.8 },
+        { "xFactor": 0.5, "yFactor": 0.8 },
+        { "xFactor": 0.7, "yFactor": 0.8 },
+        { "xFactor": 0.8, "yFactor": 0.7 },
+        { "xFactor": 0.8, "yFactor": 0.6 },
+        { "xFactor": 0.5, "yFactor": 0.5 },
+        { "xFactor": 0.2, "yFactor": 0.4 },
+        { "xFactor": 0.2, "yFactor": 0.3 },
+        { "xFactor": 0.3, "yFactor": 0.2 },
+        { "xFactor": 0.5, "yFactor": 0.2 }
+      ],
+      "outerTrackScale": 1.1,
+      "innerTrackScale": 0.55,
+      "startPosition": { "xFactor": 0.5, "yFactor": 0.3, "angle": 0 },
+      "checkpointCount": 12,
+      "trackColor": "#553333",
+      "borderColor": "#ffcccc"
+    },
+    {
+      "id": "oval",
+      "name": "Speed Oval",
+      "description": "A simple oval track for high speed racing",
+      "previewColor": "#33cc66",
+      "controlPoints": [
+        { "xFactor": 0.7, "yFactor": 0.7 },
+        { "xFactor": 0.8, "yFactor": 0.7 },
+        { "xFactor": 0.9, "yFactor": 0.6 },
+        { "xFactor": 0.9, "yFactor": 0.4 },
+        { "xFactor": 0.8, "yFactor": 0.3 },
+        { "xFactor": 0.7, "yFactor": 0.3 },
+        { "xFactor": 0.6, "yFactor": 0.3 },
+        { "xFactor": 0.4, "yFactor": 0.3 },
+        { "xFactor": 0.3, "yFactor": 0.3 },
+        { "xFactor": 0.2, "yFactor": 0.3 },
+        { "xFactor": 0.1, "yFactor": 0.4 },
+        { "xFactor": 0.1, "yFactor": 0.6 },
+        { "xFactor": 0.2, "yFactor": 0.7 },
+        { "xFactor": 0.3, "yFactor": 0.7 },
+        { "xFactor": 0.7, "yFactor": 0.7 }
+      ],
+      "outerTrackScale": 1.05,
+      "innerTrackScale": 0.7,
+      "startPosition": { "xFactor": 0.5, "yFactor": 0.7, "angle": 0 },
+      "checkpointCount": 6,
+      "trackColor": "#355535",
+      "borderColor": "#ccffcc"
+    }
+  ]
+}
